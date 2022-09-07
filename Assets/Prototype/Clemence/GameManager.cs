@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public Ghost[] ghostsList;
     public Pacman pacman;
-    public Transform[] pellets;
+    public Transform[] pacgums;
     public int PlayerScore { get; private set; }
     public int PlayerLives { get; private set; }
 
@@ -70,27 +70,28 @@ public class GameManager : MonoBehaviour
         SetScore(PlayerScore + ghost.points);
     }
 
-    public void EatPellet(Pellet pellet)
+    public void EatPacgum(Pacgum pacgum)
     {
-        pellet.gameObject.SetActive(false);
-        SetScore(PlayerScore + pellet.points);
-        if (!HasRemainingPellets())
+        pacgum.gameObject.SetActive(false);
+        SetScore(PlayerScore + pacgum.points);
+        if (!HasRemainingPacgums())
         {
             //lancer l'UI pour rejouer ou quitter
+            Debug.Log("you win");
         }
     }
 
-    public void EatPowerPellet(PowerPellet powerPellet)
+    public void EatSuperPacgum(SuperPacgum superPacgum)
     {
-        EatPellet(powerPellet);
+        EatPacgum(superPacgum);
         //changer etat fantomes
     }
 
-    public bool HasRemainingPellets()
+    public bool HasRemainingPacgums()
     {
-        foreach(Transform pellet in pellets)
+        foreach(Transform pacgum in pacgums)
         {
-            if (pellet.gameObject.activeSelf)
+            if (pacgum.gameObject.activeSelf)
             {
                 return true;
             }
