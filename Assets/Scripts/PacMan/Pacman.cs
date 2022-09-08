@@ -1,56 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.iOS.Xcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace finale
+namespace CCLH
 {
     public class Pacman : MonoBehaviour
     {
-        public Movement movement { get; private set; }
-        public Controls pacControls { get; private set; }
-        private InputAction controleMouvement { get; set; }
+        private Movement _movement;
+        private Controls _action;
+        private InputAction _move;
 
         void OnEnable()
         {
-            controleMouvement = pacControls.Controles.Movements;
-            controleMouvement.Enable();
+            if(_action is null)
+            {
+                _action = new Controls();
+                _move = _action.Controles.Movements;
+            }
+            
+            _action.Enable();
         }
 
         void OnDisable()
         {
-            controleMouvement.Disable();
+            _action.Disable();
         }
 
 
         void Awake()
         {
-            movement = GetComponent<Movement>();
-            pacControls = new Controls();
+            _movement = GetComponent<Movement>();
         }
 
         void Update()
         {
-            Vector2 dir = controleMouvement.ReadValue<Vector2>();
-            print(dir);
+            var dir = _move.ReadValue<Vector2>();
+            
+            //TODO : Pas très opti, modifier et utiliser les prop des Vector2
+            //TODO : Mettre ça dans une méthode externe.
             if (dir[1] > 0.5)
             {
-                movement.ChangerDirection(Vector2.up);
+                _movement.ChangerDirection(Vector2.up);
             }
             else if (dir[1] < -0.5)
             {
-                movement.ChangerDirection(Vector2.down);
+                _movement.ChangerDirection(Vector2.down);
             }
             else if (dir[0] > 0.5)
             {
-                movement.ChangerDirection(Vector2.right);
+                _movement.ChangerDirection(Vector2.right);
             }
             else if (dir[0] < -0.5)
             {
-                movement.ChangerDirection(Vector2.left);
+                _movement.ChangerDirection(Vector2.left);
             }
-
-            float angle = Mathf.Atan2(movement.directionActuelle.y, movement.directionActuelle.x) + Mathf.PI;
+            
+            
+            var angle = Mathf.Atan2(_movement.CurrentDir.y, _movement.CurrentDir.x) + Mathf.PI;
             transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
         }
     }

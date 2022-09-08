@@ -16,6 +16,7 @@ namespace CCLH
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             if (data is null) throw new Exception("Data is null ! Set it in the inspector.");
+            SetSprite();
         }
 
         private void SetSprite() => _spriteRenderer.sprite = data.sprite;
