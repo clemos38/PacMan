@@ -1,3 +1,4 @@
+using Prototype.Clemence;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
