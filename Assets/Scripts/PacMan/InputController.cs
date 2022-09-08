@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 namespace CCLH
 {
-    public class Pacman : MonoBehaviour
+    public class InputController : MonoBehaviour
     {
         private Movement _movement;
         private Controls _action;
         private InputAction _move;
 
-        void OnEnable()
+        private void OnEnable()
         {
             if(_action is null)
             {
@@ -20,23 +20,28 @@ namespace CCLH
             _action.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _action.Disable();
         }
 
 
-        void Awake()
+        private void Awake()
         {
             _movement = GetComponent<Movement>();
         }
 
-        void Update()
+        private void Update()
+        {
+            LookForInput();
+            Rotate();
+        }
+
+        private void LookForInput()
         {
             var dir = _move.ReadValue<Vector2>();
             
             //TODO : Pas très opti, modifier et utiliser les prop des Vector2
-            //TODO : Mettre ça dans une méthode externe.
             if (dir[1] > 0.5)
             {
                 _movement.ChangerDirection(Vector2.up);
@@ -53,10 +58,15 @@ namespace CCLH
             {
                 _movement.ChangerDirection(Vector2.left);
             }
-            
-            
+        }
+
+        //TODO : To move to the movement script (more logical)
+        private void Rotate()
+        {
             var angle = Mathf.Atan2(_movement.CurrentDir.y, _movement.CurrentDir.x) + Mathf.PI;
             transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
         }
+        
+        
     }
 }
