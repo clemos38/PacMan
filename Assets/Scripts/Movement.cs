@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
 
     public Vector2 initDir;
     public Vector2 CurrentDir {get; private set; } 
-    public Vector2 NextDir {get; private set; } // pas sûr qu'on ait besoin que ce soit public.
+    private Vector2 NextDir;// En effet ça peut être privé
     private Vector3 _initPos;
 
     [SerializeField] private LayerMask obstacleLayer;
@@ -60,11 +60,11 @@ public class Movement : MonoBehaviour
         if(hit.collider is  null) // Si on ne rencontre rien dans la nouvelle direction
         {
             CurrentDir = Ndirection; //Change de direction
-            NextDir = Vector2.zero; //! Je ne comprend pas l'intérêt de cette variable
+            NextDir = Vector2.zero; //Si l'on a put changer de direction, on vide le cache de direction demandée.
         }
         else
         {
-            NextDir = Ndirection; // ?
+            NextDir = Ndirection; //Sinon, on garde la direction demandé en cache pour la changer dès que possible.
         }
     }
 }
