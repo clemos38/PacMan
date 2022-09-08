@@ -18732,25 +18732,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8888250514968091353, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
-      propertyPath: boxcastSize
-      value: 0.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 8888250514968091353, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
-      propertyPath: obstacleLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18791,10 +18775,6 @@ PrefabInstance:
     - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8888250514968091356, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
-      propertyPath: m_Radius
-      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 8888250514968091358, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
       propertyPath: m_Name
