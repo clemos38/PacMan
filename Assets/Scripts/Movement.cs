@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
-    public float vitesse = 8.0f;
-    public float facteurVit = 1.0f;
+    [SerializeField] private float speed = 8.0f;
+    [SerializeField] private float speedFactor = 1.0f;
 
     public float boxcastSize = 0.8f;
 
@@ -40,7 +40,7 @@ public class Movement : MonoBehaviour
 
     public void Reset()
     {
-        facteurVit = 1.0f;
+        speedFactor = 1.0f;
         directionActuelle = directionInitiale;
         directionSuivante = Vector2.zero;
         transform.position = positionDépart;
@@ -49,7 +49,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 position = rigidbody.position;
-        Vector2 difference = vitesse*facteurVit*Time.fixedDeltaTime* directionActuelle;
+        Vector2 difference = speed*speedFactor*Time.fixedDeltaTime* directionActuelle;
         rigidbody.MovePosition(position + difference);
     }
 

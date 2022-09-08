@@ -32,6 +32,7 @@ namespace finale
         void Update()
         {
             Vector2 dir = controleMouvement.ReadValue<Vector2>();
+            print(dir);
             if (dir[1] > 0.5)
             {
                 movement.ChangerDirection(Vector2.up);

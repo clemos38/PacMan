@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Ghost[] ghostsList;
+    [SerializeField] private Ghost[] ghostsList;
     public Pacman pacman;
     public Transform[] pacgums;
     public int PlayerScore { get; private set; }
