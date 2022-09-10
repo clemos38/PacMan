@@ -1,4 +1,3 @@
-using System;
 using CCLH;
 using UnityEngine;
 
@@ -9,6 +8,9 @@ namespace Ghosts
         private GhostState _currentState;
         private GhostBrain _brain;
         [SerializeField] private GhostData data;
+
+        private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
 
         #region States definitions
 
@@ -23,12 +25,14 @@ namespace Ghosts
         private void Awake()
         {
             //Init all states
-            NormalState = new GhostNormalState();
-            ChaseState = new GhostChaseState();
-            WeakState = new GhostWeakState();
-            DeathState = new GhostDeathState();
-            RespawnState = new GhostRespawnState();
-            
+            NormalState = new GhostNormalState(this); //Scatter mode
+            ChaseState = new GhostChaseState(this); //Chase mode
+            WeakState = new GhostWeakState(this); //being attacked by pacman
+            DeathState = new GhostDeathState(this); //Going back home
+            RespawnState = new GhostRespawnState(this); //Respawning at the base and getting out
+
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             _brain = data.GetBrain(); //! Make sure GhostBrain in GhostData is loaded beforehand.
         }
 
@@ -39,7 +43,7 @@ namespace Ghosts
 
         private void Update()
         {
-            _currentState.UpdateState(_brain);
+            _currentState.UpdateState();
         }
 
         public void ChangeState(GhostState state)
@@ -48,5 +52,8 @@ namespace Ghosts
             _currentState = state;
             _currentState.EnterState();
         }
+
+        public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);
+        public void SetSpriteColor(Color c) => _spriteRenderer.color = c;
     }
 }

@@ -4,17 +4,24 @@ namespace Ghosts
     {
         public override void EnterState()
         {
-            throw new System.NotImplementedException();
+            //Play the death animation
+            //Change the sprite
+            //Wait for the death animation to finish.
         }
 
-        public override void UpdateState(GhostBrain brain)
+        public override void UpdateState()
         {
-            throw new System.NotImplementedException();
+            //Computing direction to return home.
         }
 
         public override void EndState()
         {
             throw new System.NotImplementedException();
+        }
+
+
+        public GhostDeathState(GhostStateManager manager) : base(manager)
+        {
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Ghosts
             throw new System.NotImplementedException();
         }
 
-        public override void UpdateState(GhostBrain brain)
+        public override void UpdateState()
         {
             throw new System.NotImplementedException();
         }
@@ -15,6 +15,10 @@ namespace Ghosts
         public override void EndState()
         {
             throw new System.NotImplementedException();
+        }
+
+        public GhostChaseState(GhostStateManager manager) : base(manager)
+        {
         }
     }
 }
