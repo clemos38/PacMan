@@ -1,20 +1,36 @@
+using UnityEngine;
+
 namespace Ghosts
 {
     public class GhostNormalState : GhostState
     {
-        public override void EnterState()
+        private int _animationTriggerHash;
+        public GhostNormalState(GhostStateManager manager) : base(manager)
         {
-            throw new System.NotImplementedException();
+            _animationTriggerHash = Animator.StringToHash("Normal");
         }
 
-        public override void UpdateState(GhostBrain brain)
+        public override void EnterState()
         {
-            throw new System.NotImplementedException();
+            //Make sure we have the appropriate sprite : modify it to the normal sprite
+            Manager.SetAnimatorTrigger(_animationTriggerHash);
+            Manager.SetSpriteColor(Color.white);
+            
+        }
+
+        public override void UpdateState()
+        {
+            //Purely random movement
+
+            //Check if we are on an intersection
+
+            //if so, choose a random direction.
         }
 
         public override void EndState()
         {
             throw new System.NotImplementedException();
         }
+        
     }
 }
