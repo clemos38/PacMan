@@ -7,6 +7,8 @@ namespace CCLH
     public class GameManager : MonoBehaviour
     {
 
+        #region Singleton declaration
+
         public static GameManager Singleton;
 
         private void Awake()
@@ -15,6 +17,8 @@ namespace CCLH
 
             Singleton = this;
         }
+
+        #endregion
 
         [SerializeField] private Ghost[] ghostsList;
         public Pacman pacman;
