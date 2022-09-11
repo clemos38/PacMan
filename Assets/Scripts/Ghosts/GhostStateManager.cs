@@ -14,11 +14,11 @@ namespace Ghosts
 
         #region States definitions
 
-        public GhostNormalState NormalState { get; private set; }
-        public GhostChaseState ChaseState { get; private set; }
-        public GhostWeakState WeakState { get; private set; }
-        public GhostDeathState DeathState { get; private set; }
-        public GhostRespawnState RespawnState { get; private set; }
+        public GhostNormalState NormalState { get; private set; } //Scatter mode
+        public GhostChaseState ChaseState { get; private set; } //Chase pacman
+        public GhostWeakState WeakState { get; private set; } //Frighten
+        public GhostDeathState DeathState { get; private set; } //Go back home
+        public GhostRespawnState RespawnState { get; private set; } //Get out of home
 
         #endregion
 

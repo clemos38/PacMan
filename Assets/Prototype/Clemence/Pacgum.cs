@@ -7,6 +7,7 @@ namespace CCLH
     public class Pacgum : MonoBehaviour
     {
         public int points = 10;
+        
 
         public void OnTriggerEnter2D(Collider2D collider)
         {
@@ -17,7 +18,7 @@ namespace CCLH
         }
         protected virtual void GetEaten()
         {
-            FindObjectOfType<GameManager>().EatPacgum(this);
+            GameManager.Singleton.EatPacgum(this);
         }
     }
 }

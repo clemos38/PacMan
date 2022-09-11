@@ -5,7 +5,7 @@ namespace Ghosts
     public class BlueBrain : GhostBrain
     {
         Vector2 posGoalInky = new Vector2(7.5f,-10.5f);
-        public override Vector2 ChoosetargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 posBlinky)
+        public override Vector2 ChooseTargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 posBlinky)
         {
             Vector2 target = Vector2.zero;
 

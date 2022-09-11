@@ -13,7 +13,7 @@ namespace Ghosts
             Chase,
             Dead
         }
-        public abstract Vector2 ChoosetargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 otherPos);
+        public abstract Vector2 ChooseTargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 otherPos);
 
         /// <summary>
         /// This function return the direction at a certain node.
@@ -22,6 +22,7 @@ namespace Ghosts
         /// <param name="currentPosition">The position of the ghost</param>
         /// <param name="targetTile">The target tile the ghost must go to.</param>
         /// <param name="currentDirection">The current direction of the ghost.</param>
+        /// <param name="state">The current state of the ghost</param>
         /// <returns>The direction to take as a Vector2.</returns>
         public Vector2 ChooseDirection(Node node, Vector2 currentPosition, Vector2 targetTile, Vector2 currentDirection, State state)
         {
@@ -32,7 +33,7 @@ namespace Ghosts
 
             if(state == State.Frightened)
             {
-                int num = Random.Range(0, node.AvailableDirections.Count);
+                var num = Random.Range(0, node.AvailableDirections.Count);
                 dirToGo = node.AvailableDirections[num];
             }
 

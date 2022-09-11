@@ -15,13 +15,19 @@ namespace Ghosts
             //Make sure we have the appropriate sprite : modify it to the normal sprite
             Manager.SetAnimatorTrigger(_animationTriggerHash);
             Manager.SetSpriteColor(Color.white);
+            //TODO : Activer les yeux
             
         }
 
         public override void UpdateState(GhostBrain brain)
         {
+            //Calcul de la cible
+            
+            //Si noeud => décision
+            
+            //Appelle Mouvement.cs fait le mouvement.
             //Purely random movement
-
+            
             //Check if we are on an intersection
 
             //if so, choose a random direction.

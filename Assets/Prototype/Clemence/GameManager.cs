@@ -1,3 +1,4 @@
+using System;
 using Prototype.Clemence;
 using UnityEngine;
 
@@ -5,6 +6,15 @@ namespace CCLH
 {
     public class GameManager : MonoBehaviour
     {
+
+        public static GameManager Singleton;
+
+        private void Awake()
+        {
+            if (Singleton != null && Singleton != this) Destroy(gameObject);
+
+            Singleton = this;
+        }
 
         [SerializeField] private Ghost[] ghostsList;
         public Pacman pacman;
@@ -51,9 +61,10 @@ namespace CCLH
         {
 
         }
-        public void GameOver()
+        private void GameOver()
         {
             pacman.gameObject.SetActive(false);
+            //TODO : Désactiver les inputs de PacMan
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].gameObject.SetActive(false);
@@ -68,6 +79,8 @@ namespace CCLH
                 GameOver();
             }
         }
+
+        #region Score related
 
         public void EatGhost(Ghost ghost)
         {
@@ -91,8 +104,11 @@ namespace CCLH
             //changer etat fantomes
         }
 
+        #endregion
+
         public bool HasRemainingPacgums()
         {
+            //TODO : Checker avec le score.
             foreach (Transform pacgum in pacgums)
             {
                 if (pacgum.gameObject.activeSelf)
