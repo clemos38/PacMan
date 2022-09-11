@@ -18732,6 +18732,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6888390032966122928, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8888250514968091355, guid: 6f7012b150f4449d0b8846ee9b7c7b6a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -18935,4 +18939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee63d8f08a6645c7a876be964b4d0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: ff319fbabd1704c19873238e860cbe9e, type: 2}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  boxcastSize: 0.23
