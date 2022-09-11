@@ -5,7 +5,14 @@ namespace Ghosts
 {
     public abstract class GhostBrain
     {
-        public abstract Vector2 ChooseTargetTile();
+        private Vector2 posGhosthome = new Vector2(-2,1.2f);
+        public enum State
+        {
+            Scatter,
+            Frightened,
+            Chase
+        }
+        public abstract Vector2 ChoosetargetTile(State state);
 
         /// <summary>
         /// This function return the direction at a certain node.
