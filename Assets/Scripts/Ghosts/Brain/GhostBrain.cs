@@ -5,21 +5,31 @@ namespace Ghosts
 {
     public abstract class GhostBrain
     {
-        public abstract Vector2 ChoosetargetTile();
+        public abstract Vector2 ChooseTargetTile();
 
-        public Vector2 ChooseDirection(Node node, Vector2 CurrentPosition, Vector2 targetTile, Vector2 CurrentDirection)
+        /// <summary>
+        /// This function return the direction at a certain node.
+        /// </summary>
+        /// <param name="node">The node to take the decision from</param>
+        /// <param name="currentPosition">The position of the ghost</param>
+        /// <param name="targetTile">The target tile the ghost must go to.</param>
+        /// <param name="currentDirection">The current direction of the ghost.</param>
+        /// <returns>The direction to take as a Vector2.</returns>
+        public Vector2 ChooseDirection(Node node, Vector2 currentPosition, Vector2 targetTile, Vector2 currentDirection)
         {
-            Vector2 AngleToTarget = (targetTile-CurrentPosition);
+            var angleToTarget = (targetTile-currentPosition);
 
-            float minAngle = 180.0f;
-            float angleToTest = 0.0f;
-            Vector2 dirToGo = -CurrentDirection;
-            foreach(Vector2 dirToTest in node.availableDirections)
+            var minAngle = 180.0f;
+            
+            var dirToGo = -currentDirection;
+            
+            var angle = 0.0f; //Init
+            foreach(Vector2 dirToTest in node.AvailableDirections) //We go through each possible direction in the node
             {
-                angleToTest = Vector2.Angle(AngleToTarget,dirToTest);
-                if(angleToTest<minAngle && dirToTest!=(-CurrentDirection))
+                angle = Vector2.Angle(angleToTarget,dirToTest);
+                if(angle<minAngle && dirToTest!=(-currentDirection)) 
                 {
-                    minAngle = angleToTest;
+                    minAngle = angle;
                     dirToGo = dirToTest;
                 }
             }
