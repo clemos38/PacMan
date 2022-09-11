@@ -16,5 +16,9 @@ namespace Ghosts
         {
             throw new System.NotImplementedException();
         }
+
+        public GhostWeakState(GhostStateManager manager) : base(manager)
+        {
+        }
     }
 }

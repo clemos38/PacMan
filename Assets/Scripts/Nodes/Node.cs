@@ -1,31 +1,32 @@
 using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace CCLH
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public class Node : MonoBehaviour
     {
-        private SpriteRenderer _spriteRenderer;
-        [SerializeField] private NodeData data;
-
-
-        private void Awake()
+        [SerializeField] private LayerMask obstacleLayer;
+        [SerializeField] private float boxcastSize = 0.23f;
+        public List<Vector2> AvailableDirections { get; private set; }
+        
+        private void Start()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            if (data is null) throw new Exception("Data is null ! Set it in the inspector.");
-            SetSprite();
+            AddAvailableDir(Vector2.up);
+            AddAvailableDir(Vector2.down);
+            AddAvailableDir(Vector2.left);
+            AddAvailableDir(Vector2.right);
         }
 
-        private void SetSprite() => _spriteRenderer.sprite = data.sprite;
-
-        public void ChangeType([NotNull] NodeData nodeData)
+        private void AddAvailableDir(Vector2 dir)
         {
-            if (nodeData is null) throw new Exception("nodeData shouldn't be null !");
-            data = nodeData;
-            SetSprite(); //Check if this could be an issue with None or Empty. 
+            var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, dir, 0.9f, obstacleLayer);
+            if(hit.collider is  null)
+            {
+                AvailableDirections.Add(dir);
+            }
         }
     }
 }

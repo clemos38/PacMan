@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperPacgum : Pacgum
+namespace CCLH
 {
-    public int duration = 1;
-   
-    protected override void GetEaten()
+    public class SuperPacgum : Pacgum
     {
-        FindObjectOfType<GameManager>().EatSuperPacgum(this);
+        public int duration = 1;
+
+        protected override void GetEaten()
+        {
+            FindObjectOfType<GameManager>().EatSuperPacgum(this);
+            Debug.Log("SuperPacgum eaten");
+        }
     }
 }
