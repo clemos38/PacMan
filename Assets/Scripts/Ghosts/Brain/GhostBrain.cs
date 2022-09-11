@@ -6,14 +6,8 @@ namespace Ghosts
     public abstract class GhostBrain
     {
         public Vector2 posGhosthome = new Vector2(-2,1.2f);
-        public enum State
-        {
-            Scatter,
-            Frightened,
-            Chase,
-            Dead
-        }
-        public abstract Vector2 ChooseTargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 otherPos);
+        
+        public abstract Vector2 ChooseTargetTile(GState state, Vector2 posPacman, Vector2 dirPacman, Vector2[] ghostsPos);
 
         /// <summary>
         /// This function return the direction at a certain node.
@@ -24,14 +18,14 @@ namespace Ghosts
         /// <param name="currentDirection">The current direction of the ghost.</param>
         /// <param name="state">The current state of the ghost</param>
         /// <returns>The direction to take as a Vector2.</returns>
-        public Vector2 ChooseDirection(Node node, Vector2 currentPosition, Vector2 targetTile, Vector2 currentDirection, State state)
+        public Vector2 ChooseDirection(Node node, Vector2 currentPosition, Vector2 targetTile, Vector2 currentDirection, GState state)
         {
             //Init some angles
             var angleToTarget = (targetTile-currentPosition);
             var minAngle = 180.0f;
             var dirToGo = -currentDirection;
 
-            if(state == State.Frightened)
+            if(state == GState.Frightened)
             {
                 var num = Random.Range(0, node.AvailableDirections.Count);
                 dirToGo = node.AvailableDirections[num];
@@ -55,5 +49,13 @@ namespace Ghosts
             return dirToGo;
         }
 
+    }
+    
+    public enum GState
+    {
+        Scatter,
+        Frightened,
+        Chase,
+        Dead
     }
 }

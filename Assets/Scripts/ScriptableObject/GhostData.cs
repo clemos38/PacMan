@@ -10,30 +10,7 @@ namespace CCLH
         public Color color;
         public GhostType type;
 
-        private GhostBrain _brain;
 
-        private void OnEnable()
-        {
-            switch (type)
-            {
-                case GhostType.Red:
-                    _brain = new RedBrain();
-                    break;
-                case GhostType.Blue:
-                    _brain = new BlueBrain();
-                    break;
-                case GhostType.Purple:
-                    _brain = new PurpleBrain();
-                    break;
-                case GhostType.Orange:
-                    _brain = new OrangeBrain();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public GhostBrain GetBrain() => _brain;
     }
 
     public enum GhostType

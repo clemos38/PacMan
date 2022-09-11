@@ -9,7 +9,7 @@ namespace Ghosts
             //Wait for the death animation to finish.
         }
 
-        public override void UpdateState(GhostBrain brain)
+        public override void UpdateState()
         {
             //Computing direction to return home.
         }

@@ -1,3 +1,4 @@
+using CCLH;
 using UnityEngine;
 
 namespace Ghosts
@@ -19,23 +20,39 @@ namespace Ghosts
             
         }
 
-        public override void UpdateState(GhostBrain brain)
+        //private Vector3 _lastPosOnNode = Vector3.zero;
+        public override void UpdateState()
         {
-            //Calcul de la cible
+            Debug.Log(Manager.brain);
+            //Choose the target Tile
+            TargetTile = Manager.brain.ChooseTargetTile(GState.Scatter,
+                Manager.GetPacmanPosition(),
+                Manager.GetPacmanDirection(),
+                        GhostsManager.GetGhostPosition());
             
-            //Si noeud => décision
-            
-            //Appelle Mouvement.cs fait le mouvement.
-            //Purely random movement
-            
-            //Check if we are on an intersection
-
-            //if so, choose a random direction.
+            //Check if we get on a node
+            var pos = Manager.Tf.position;
+            var col = Physics2D.OverlapBox(pos,
+                0.5f * Vector2.one,
+                0, Manager.nodeLayer);
+            if (!(col is null))
+            {
+                //if ((pos - _lastPosOnNode).sqrMagnitude < 0.5f) return; //Avoid multiple call.
+                //_lastPosOnNode = pos;
+                var node = col.GetComponent<Node>();
+                var dir = Manager.brain.ChooseDirection(node,
+                    pos,
+                                        TargetTile,
+                           Manager.Movement.CurrentDir,
+                                        GState.Scatter);
+                Debug.Log($"We detect {node.name}.");
+                Manager.Movement.ChangerDirection(dir);
+            }
         }
 
         public override void EndState()
         {
-            throw new System.NotImplementedException();
+           Debug.Log("End of Scatter mode.");
         }
         
     }

@@ -7,7 +7,7 @@ namespace Ghosts
             throw new System.NotImplementedException();
         }
 
-        public override void UpdateState(GhostBrain brain)
+        public override void UpdateState()
         {
             throw new System.NotImplementedException();
         }

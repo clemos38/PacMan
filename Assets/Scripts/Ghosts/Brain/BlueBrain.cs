@@ -5,20 +5,21 @@ namespace Ghosts
     public class BlueBrain : GhostBrain
     {
         Vector2 posGoalInky = new Vector2(7.5f,-10.5f);
-        public override Vector2 ChooseTargetTile(State state, Vector2 posPacman, Vector2 dirPacman, Vector2 posBlinky)
+        public override Vector2 ChooseTargetTile(GState state, Vector2 posPacman, Vector2 dirPacman, Vector2[] ghostsPos) //blinky
         {
-            Vector2 target = Vector2.zero;
+            var target = Vector2.zero;
+            var posBlinky = ghostsPos[0];
 
-            if(state == State.Scatter)
+            if(state == GState.Scatter)
             {
                 target = posGoalInky;
             }
-            else if(state == State.Chase)
+            else if(state == GState.Chase)
             {
                 Vector2 refPacman = (posPacman + (2/3)*dirPacman);
                 target = 2*refPacman - posBlinky;
             }
-            else if(state == State.Dead)
+            else if(state == GState.Dead)
             {
                 target = posGhosthome;
             }

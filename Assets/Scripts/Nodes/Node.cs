@@ -14,6 +14,7 @@ namespace CCLH
         
         private void Start()
         {
+            AvailableDirections = new List<Vector2>();
             AddAvailableDir(Vector2.up);
             AddAvailableDir(Vector2.down);
             AddAvailableDir(Vector2.left);

@@ -1,16 +1,28 @@
+using System;
 using CCLH;
 using UnityEngine;
 
 namespace Ghosts
 {
+    [RequireComponent(typeof(Movement))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class GhostStateManager : MonoBehaviour
     {
         private GhostState _currentState;
-        private GhostBrain _brain;
-        [SerializeField] private GhostData data;
+        public GhostBrain brain { get; private set; }
 
+        [Header("Ghost info")] 
+        [SerializeField] private Color color;
+        [SerializeField] private GhostType type;
+        
+        public LayerMask nodeLayer;
+        
+        
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
+        public Movement Movement { get; private set; }
+        public Transform Tf { get; private set; }
 
         #region States definitions
 
@@ -33,17 +45,45 @@ namespace Ghosts
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
-            _brain = data.GetBrain(); //! Make sure GhostBrain in GhostData is loaded beforehand.
+            
+            //Brain affectation
+            SetBrain();
+            
+            Tf = transform;
+            Movement = GetComponent<Movement>();
+
+            _pacmanTransform = pacman.transform;
+        }
+
+        private void SetBrain()
+        {
+            switch (type)
+            {
+                case GhostType.Red:
+                    brain = new RedBrain();
+                    break;
+                case GhostType.Blue:
+                    brain = new BlueBrain();
+                    break;
+                case GhostType.Purple:
+                    brain = new PurpleBrain();
+                    break;
+                case GhostType.Orange:
+                    brain = new OrangeBrain();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void Start()
         {
-            ChangeState(RespawnState); //!Not sure. To see
+            ChangeState(NormalState); //!Not sure. To see
         }
 
         private void Update()
         {
-            _currentState.UpdateState(_brain);
+            _currentState.UpdateState();
         }
 
         public void ChangeState(GhostState state)
@@ -53,7 +93,20 @@ namespace Ghosts
             _currentState.EnterState();
         }
 
+        #region Visual related
+
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);
         public void SetSpriteColor(Color c) => _spriteRenderer.color = c;
+        
+
+        #endregion
+        #region PacMan Related Getters
+        [SerializeField] private Movement pacman;
+        private Transform _pacmanTransform;
+        public Vector3 GetPacmanPosition() => _pacmanTransform.position;
+        public Vector2 GetPacmanDirection() => pacman.CurrentDir;
+
+
+        #endregion
     }
 }

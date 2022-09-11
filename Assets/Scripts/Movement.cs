@@ -56,15 +56,16 @@ public class Movement : MonoBehaviour
     {
         //TODO : A modifier, les valeurs sont pas bonne je pense.
         //! À régler
+        Debug.Log($"{name} want to take the direction {Ndirection}");
         var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, Ndirection, 0.9f, obstacleLayer);
         if(hit.collider is  null) // Si on ne rencontre rien dans la nouvelle direction
         {
             CurrentDir = Ndirection; //Change de direction
-            NextDir = Vector2.zero; //Si l'on a put changer de direction, on vide le cache de direction demandée.
+            NextDir = Vector2.zero; //Si l'on a pu changer de direction, on vide le cache de direction demandée.
         }
         else
         {
-            NextDir = Ndirection; //Sinon, on garde la direction demandé en cache pour la changer dès que possible.
+            NextDir = Ndirection; //Sinon, on garde la direction demandée en cache pour la changer dès que possible.
         }
     }
 }
