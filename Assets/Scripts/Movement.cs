@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
     {
         //TODO : A modifier, les valeurs sont pas bonne je pense.
         //! À régler
-        var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, Ndirection, 1.2f, obstacleLayer);
+        var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, Ndirection, 0.9f, obstacleLayer);
         if(hit.collider is  null) // Si on ne rencontre rien dans la nouvelle direction
         {
             CurrentDir = Ndirection; //Change de direction

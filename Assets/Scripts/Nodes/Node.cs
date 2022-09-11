@@ -22,7 +22,7 @@ namespace CCLH
 
         private void AddAvailableDir(Vector2 dir)
         {
-            var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, dir, 1.0f, obstacleLayer);
+            var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, dir, 0.9f, obstacleLayer);
             if(hit.collider is  null)
             {
                 AvailableDirections.Add(dir);
