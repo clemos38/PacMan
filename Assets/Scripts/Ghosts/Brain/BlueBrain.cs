@@ -15,7 +15,7 @@ namespace Ghosts
             }
             else if(state == State.Chase)
             {
-                Vector2 refPacman = (posPacman + 2*dirPacman);
+                Vector2 refPacman = (posPacman + (2/3)*dirPacman);
                 target = 2*refPacman - posBlinky;
             }
             else if(state == State.Dead)
