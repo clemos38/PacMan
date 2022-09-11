@@ -18,7 +18,7 @@ namespace Ghosts
             
         }
 
-        public override void UpdateState()
+        public override void UpdateState(GhostBrain brain)
         {
             //Purely random movement
 

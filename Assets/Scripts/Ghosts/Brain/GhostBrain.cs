@@ -17,14 +17,14 @@ namespace Ghosts
         /// <returns>The direction to take as a Vector2.</returns>
         public Vector2 ChooseDirection(Node node, Vector2 currentPosition, Vector2 targetTile, Vector2 currentDirection)
         {
+            //Init some angles
             var angleToTarget = (targetTile-currentPosition);
-
             var minAngle = 180.0f;
-            
             var dirToGo = -currentDirection;
             
+            //Direction check loop
             var angle = 0.0f; //Init
-            foreach(Vector2 dirToTest in node.AvailableDirections) //We go through each possible direction in the node
+            foreach(var dirToTest in node.AvailableDirections) //We go through each possible direction (Vector2) in the node
             {
                 angle = Vector2.Angle(angleToTarget,dirToTest);
                 if(angle<minAngle && dirToTest!=(-currentDirection)) 
@@ -33,7 +33,7 @@ namespace Ghosts
                     dirToGo = dirToTest;
                 }
             }
-
+            
             return dirToGo;
         }
 

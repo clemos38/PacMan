@@ -43,7 +43,7 @@ namespace Ghosts
 
         private void Update()
         {
-            _currentState.UpdateState();
+            _currentState.UpdateState(_brain);
         }
 
         public void ChangeState(GhostState state)
