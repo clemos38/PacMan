@@ -45,5 +45,16 @@ namespace CCLH
                 Gizmos.DrawLine(pos, pos+ (Vector3)direction);
             }
         }***/
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(transform.position, GetComponent<CircleCollider2D>().radius);
+            if (AvailableDirections is null) return;
+            if (AvailableDirections.Count == 0) return;
+            foreach (var direction in AvailableDirections)
+            {
+                Gizmos.DrawLine(pos, pos+ (Vector3)direction);
+            }
+        }
     }
 }

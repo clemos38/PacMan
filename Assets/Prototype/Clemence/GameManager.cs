@@ -6,6 +6,19 @@ namespace CCLH
 {
     public class GameManager : MonoBehaviour
     {
+        #region SIngleton declaration
+
+        public static GameManager Singleton;
+
+        private void Awake()
+        {
+            if(Singleton != null && Singleton != this) Destroy(gameObject);
+
+            Singleton = this;
+        }
+
+        #endregion
+        
         [SerializeField] private GhostStateManager[] ghostsList;
         public Pacman pacman;
         public Transform pacgums;
@@ -16,13 +29,7 @@ namespace CCLH
         {
             NewGame();
         }
-        public void Update()
-        {
-            if (Input.GetKeyDown("space"))
-            {
-                PacmanDies();
-            }
-        }
+        
         public void NewGame()
         {
             SetScore(0);
