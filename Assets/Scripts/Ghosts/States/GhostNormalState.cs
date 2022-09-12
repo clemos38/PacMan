@@ -10,26 +10,23 @@ namespace Ghosts
         {
             _animationTriggerHash = Animator.StringToHash("Normal");
         }
-
+        
         public override void EnterState()
         {
             //Make sure we have the appropriate sprite : modify it to the normal sprite
             Manager.SetAnimatorTrigger(_animationTriggerHash);
-            Manager.SetSpriteColor(Color.white);
+            Manager.SetSpriteColor(true);
             //TODO : Activer les yeux
-            
         }
 
         //private Vector3 _lastPosOnNode = Vector3.zero;
         public override void UpdateState()
         {
-            Debug.Log(Manager.brain);
             //Choose the target Tile
             TargetTile = Manager.brain.ChooseTargetTile(GState.Scatter,
                 Manager.GetPacmanPosition(),
                 Manager.GetPacmanDirection(),
                         GhostsManager.GetGhostPosition());
-            
             //Check if we get on a node
             var pos = Manager.Tf.position;
             var col = Physics2D.OverlapBox(pos,

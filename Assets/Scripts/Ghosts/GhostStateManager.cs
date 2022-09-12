@@ -34,7 +34,7 @@ namespace Ghosts
 
         #endregion
 
-        private void Awake()
+        private void Start()
         {
             //Init all states
             NormalState = new GhostNormalState(this); //Scatter mode
@@ -53,6 +53,8 @@ namespace Ghosts
             Movement = GetComponent<Movement>();
 
             _pacmanTransform = pacman.transform;
+            
+            ChangeState(NormalState);
         }
 
         private void SetBrain()
@@ -76,10 +78,7 @@ namespace Ghosts
             }
         }
 
-        private void Start()
-        {
-            ChangeState(NormalState); //!Not sure. To see
-        }
+        
 
         private void Update()
         {
@@ -96,15 +95,17 @@ namespace Ghosts
         #region Visual related
 
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);
-        public void SetSpriteColor(Color c) => _spriteRenderer.color = c;
+        public void SetSpriteColor(bool b) => _spriteRenderer.color = b ? color : Color.white;
         
 
         #endregion
+        
         #region PacMan Related Getters
         [SerializeField] private Movement pacman;
         private Transform _pacmanTransform;
         public Vector3 GetPacmanPosition() => _pacmanTransform.position;
         public Vector2 GetPacmanDirection() => pacman.CurrentDir;
+        
 
 
         #endregion

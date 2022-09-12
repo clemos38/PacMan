@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 
 namespace Ghosts
@@ -29,7 +29,6 @@ namespace Ghosts
             {
                 pos[i] = ghosts[i].position;
             }
-
             return pos;
         }
     }
