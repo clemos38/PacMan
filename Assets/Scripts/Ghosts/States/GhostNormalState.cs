@@ -13,10 +13,12 @@ namespace Ghosts
         
         public override void EnterState()
         {
+            Debug.Log("Scatter mode : START");
             //Make sure we have the appropriate sprite : modify it to the normal sprite
             Manager.SetAnimatorTrigger(_animationTriggerHash);
             Manager.SetSpriteColor(true);
-            //TODO : Activer les yeux
+            Manager.SetEyesActive(true);
+            
         }
 
         private Node _lastNode = null;
@@ -49,7 +51,7 @@ namespace Ghosts
 
         public override void EndState()
         {
-           Debug.Log("End of Scatter mode.");
+           Debug.Log("-------- Scatter mode : END");
         }
 
         public override void OnDrawGizmos()

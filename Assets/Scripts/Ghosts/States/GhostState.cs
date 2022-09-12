@@ -1,3 +1,4 @@
+using CCLH;
 using UnityEngine;
 
 namespace Ghosts
@@ -21,6 +22,11 @@ namespace Ghosts
         public abstract void EndState();
 
         public abstract void OnDrawGizmos();
+
+        public virtual void OnCollisionEnter()
+        {
+            GameManager.Singleton.PacmanDies(); //Death ?
+        }
 
 
     }

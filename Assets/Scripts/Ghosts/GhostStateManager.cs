@@ -97,14 +97,23 @@ namespace Ghosts
             if (_currentState is null) return;
             _currentState.OnDrawGizmos();
         }
-        
-        
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            Debug.Log($"We collide with {col.collider.name}");
+            if (col.transform.gameObject.layer == LayerMask.NameToLayer("Pacman"))
+            {
+                Debug.Log("We collide with pacman.");
+                _currentState.OnCollisionEnter();
+            } 
+        }
 
         #region Visual related
 
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);
         public void SetSpriteColor(bool b) => _spriteRenderer.color = b ? color : Color.white;
-        
+
+        public void SetEyesActive(bool b) =>Tf.GetChild(0).gameObject.SetActive(b);
 
         #endregion
         
