@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Script_play : MonoBehaviour
 {
    public void PlayGame()
     {
@@ -11,15 +11,7 @@ public class NewBehaviourScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void GoToSettingMenu()
-    {
-        SceneManager.LoadScene("SettingMenu");
-    }
-
-    public void GoToMainMenu()
-    {
-        SceneManager.LoadScene("MAinMenu");
-    }
+    
 
 
     public void QuitGame()
