@@ -30,12 +30,15 @@ namespace Prototype.Luke
         public Image ready;
         public Image gameOver;
         public int HScore;
+        public Image Win;
 
         private string _path;
 
         public void Affichage()
         {
             gameOver.enabled = false;
+            Win.enabled = false;
+
         }
 
         public void AffichageReady()
@@ -70,6 +73,13 @@ namespace Prototype.Luke
         public async void AffichageGameOver()
         {
             gameOver.enabled = true;
+            await Task.Delay(5 * 1000);
+            SceneManager.LoadScene(0);
+        }
+
+        public async void AffichageWin()
+        {
+            Win.enabled = true;
             await Task.Delay(5 * 1000);
             SceneManager.LoadScene(0);
         }

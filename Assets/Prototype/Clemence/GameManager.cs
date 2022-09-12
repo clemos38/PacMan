@@ -49,6 +49,7 @@ namespace CCLH
                 pacgum.gameObject.SetActive(true);
             }
             _ui.Affichage();
+
         }
         public void ResetState()
         {
@@ -115,7 +116,8 @@ namespace CCLH
             if (!HasRemainingPacgums())
             {
                 //TODO : lancer l'UI pour rejouer ou quitter
-                Debug.Log("you win");
+                //Debug.Log("you win");
+                _ui.AffichageWin();
             }
         }
         public void EatSuperPacgum(SuperPacgum superPacgum)
