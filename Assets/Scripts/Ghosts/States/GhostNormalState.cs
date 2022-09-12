@@ -19,7 +19,7 @@ namespace Ghosts
             //TODO : Activer les yeux
         }
 
-        //private Vector3 _lastPosOnNode = Vector3.zero;
+        private Vector3 _lastPosOnNode = Vector3.zero;
         public override void UpdateState()
         {
             //Choose the target Tile
@@ -34,15 +34,18 @@ namespace Ghosts
                 0, Manager.nodeLayer);
             if (!(col is null))
             {
-                //if ((pos - _lastPosOnNode).sqrMagnitude < 0.5f) return; //Avoid multiple call.
-                //_lastPosOnNode = pos;
+                if ((pos - _lastPosOnNode).sqrMagnitude < 0.5f) return; //Avoid multiple call.
+                
                 var node = col.GetComponent<Node>();
+                pos = node.transform.position;
                 var dir = Manager.brain.ChooseDirection(node,
                     pos,
                                         TargetTile,
                            Manager.Movement.CurrentDir,
                                         GState.Scatter);
-                Debug.Log($"We detect {node.name}.");
+
+                Manager.Tf.position = pos;
+                _lastPosOnNode = pos;
                 Manager.Movement.ChangerDirection(dir);
             }
         }
@@ -51,6 +54,13 @@ namespace Ghosts
         {
            Debug.Log("End of Scatter mode.");
         }
-        
+
+        public override void OnDrawGizmos()
+        {
+            //Draw the target
+            Gizmos.DrawCube(new Vector3(TargetTile.x,TargetTile.y,0), 1f*Vector3.one);
+            var pos = Manager.Tf.position;
+            Gizmos.DrawLine(pos, pos + (Vector3)Manager.Movement.CurrentDir);
+        }
     }
 }

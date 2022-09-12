@@ -17,6 +17,11 @@ namespace Ghosts
             throw new System.NotImplementedException();
         }
 
+        public override void OnDrawGizmos()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public GhostChaseState(GhostStateManager manager) : base(manager)
         {
         }

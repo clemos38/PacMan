@@ -11,6 +11,7 @@ namespace Ghosts
         {
             Manager = manager;
             GhostsManager = GhostsManager.Singleton;
+            TargetTile = Vector2.zero;
         }
 
         public abstract void EnterState();
@@ -18,7 +19,9 @@ namespace Ghosts
         public abstract void UpdateState();
 
         public abstract void EndState();
-        
+
+        public abstract void OnDrawGizmos();
+
 
     }
     

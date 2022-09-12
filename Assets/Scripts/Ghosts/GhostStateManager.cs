@@ -92,6 +92,14 @@ namespace Ghosts
             _currentState.EnterState();
         }
 
+        private void OnDrawGizmos()
+        {
+            if (_currentState is null) return;
+            _currentState.OnDrawGizmos();
+        }
+        
+        
+
         #region Visual related
 
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);

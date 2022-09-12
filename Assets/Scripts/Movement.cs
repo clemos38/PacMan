@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -22,12 +23,9 @@ public class Movement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _tf = transform;
         _initPos = _tf.position;
-    }
-
-    void Start()
-    {
         Reset();
     }
+    
 
     void Update()
     {
@@ -68,4 +66,5 @@ public class Movement : MonoBehaviour
             NextDir = Ndirection; //Sinon, on garde la direction demandée en cache pour la changer dès que possible.
         }
     }
+    
 }
