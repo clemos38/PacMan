@@ -35,7 +35,6 @@ namespace Ghosts
             {
                 if (state == GState.Dead)
                 { //When we get to the spawn.
-                    Debug.Log("<color='red'> We get here </color>");
                     if (node.gameObject.layer == LayerMask.NameToLayer("SpawnNode"))
                     {
                         Debug.Log("<color='yellow'> Spawn node has been identified </color>");

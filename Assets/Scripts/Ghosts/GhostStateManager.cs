@@ -130,7 +130,8 @@ namespace Ghosts
         {
             _collider.isTrigger = b;
         }
-        
+
+        public Vector2 GetGhostSpawn() => GhostsManager.Singleton.GetGhostSpawn(type);
         #region Visual related
 
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);

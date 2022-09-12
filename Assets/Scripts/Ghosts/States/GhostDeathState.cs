@@ -11,24 +11,16 @@ namespace Ghosts
             //Graphical part
             Manager.SetBodyActive(false);
             Manager.SetEyesActive(true);
-            
-            //Set the target Tile
-            TargetTile = Manager.brain.ChooseTargetTile(GState.Dead,
-                Manager.GetPacmanPosition(),
-                Manager.GetPacmanDirection(),
-                GhostsManager.GetGhostPosition());
-            Debug.Log($"The home tile is {TargetTile}");
-            
-            //Desactivate collision with PacMan.
-            Manager.DisableGhostCollisionWithPacMan(true);
-            
         }
 
-        private Node _lastNode = null;
+        private bool _reachHome = false;
+        private float _timer = 0f;
         public override void UpdateState()
         {
+            //Not working very well and cause many issues
+            /***
             //Check if we are at spawn
-            if (((Vector2)Manager.Tf.position -  TargetTile).sqrMagnitude < 0.5f)
+            if (((Vector2)Manager.Tf.position -  TargetTile).sqrMagnitude < 4f)
             {
                 Manager.Tf.position = TargetTile;
                 Manager.ChangeState(Manager.RespawnState);
@@ -51,6 +43,23 @@ namespace Ghosts
                     GState.Dead);
                 Manager.Movement.ChangerDirection(dir);
             }
+            ***/
+
+            if (_reachHome)
+            {
+                if(_timer <= 0)
+                {
+                    Manager.ChangeState(Manager.RespawnState);
+                    return;
+                }
+
+                _timer -= Time.deltaTime;
+                return;
+            }
+
+            Manager.Tf.position = Manager.GetGhostSpawn();
+            _reachHome = true;
+            _timer = 5f;
         }
 
         public override void EndState()
@@ -62,7 +71,7 @@ namespace Ghosts
 
         public override void OnDrawGizmos()
         {
-            Gizmos.DrawCube(new Vector3(TargetTile.x,TargetTile.y,0), 1f*Vector3.one);
+            //Nothing
         }
 
         public override void OnCollisionEnter()

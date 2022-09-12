@@ -15,9 +15,9 @@ namespace CCLH
 
     public enum GhostType
     {
-        Red,
-        Blue,
-        Purple,
-        Orange
+        Red = 0,
+        Orange = 1,
+        Purple = 2,
+        Blue = 3
     }
 }

@@ -1,4 +1,5 @@
 
+using CCLH;
 using UnityEngine;
 
 namespace Ghosts
@@ -20,7 +21,8 @@ namespace Ghosts
 
         [Tooltip("Ghosts must be in this order, red, orange, purple and blue.")]
         [SerializeField] private Transform[] ghosts;
-        
+
+        [SerializeField] private Transform[] ghostsSpawn;
 
         public Vector2[] GetGhostPosition()
         {
@@ -31,5 +33,7 @@ namespace Ghosts
             }
             return pos;
         }
+
+        public Vector2 GetGhostSpawn(GhostType type) => ghostsSpawn[(int) type].position;
     }
 }
