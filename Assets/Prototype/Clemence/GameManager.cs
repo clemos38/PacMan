@@ -1,4 +1,5 @@
 using Ghosts;
+using Prototype.Luke;
 using UnityEngine;
 
 namespace CCLH
@@ -24,6 +25,8 @@ namespace CCLH
         public int PlayerScore { get; private set; }
         public int PlayerLives { get; private set; }
 
+        private UIManager _ui;
+
         float timeRemaining = 7;
         float weakTimer = 15;
         int cycle = 0;
@@ -32,7 +35,9 @@ namespace CCLH
 
         public void Start()
         {
+            _ui = UIManager.Singleton;
             NewGame();
+            
         }
         
         public void NewGame()
@@ -43,6 +48,7 @@ namespace CCLH
             {
                 pacgum.gameObject.SetActive(true);
             }
+            _ui.Affichage();
         }
         public void ResetState()
         {
@@ -54,10 +60,14 @@ namespace CCLH
         public void SetScore(int score)
         {
             PlayerScore = score;
+            _ui.AffichageReady();
+            if(score != 0) _ui.AffichageScore(score,PlayerScore);
+            
         }
         public void SetLives(int lives)
         {
             PlayerLives = lives;
+            _ui.AffichageLives(lives);
         }
         public void ResetPacmanState()
         {
@@ -78,6 +88,7 @@ namespace CCLH
             {
                 ghostsList[i].gameObject.SetActive(false);
             }
+            _ui.AffichageGameOver();
         }
         public void PacmanDies()
         {
@@ -103,7 +114,7 @@ namespace CCLH
             SetScore(PlayerScore + pacgum.points);
             if (!HasRemainingPacgums())
             {
-                //lancer l'UI pour rejouer ou quitter
+                //TODO : lancer l'UI pour rejouer ou quitter
                 Debug.Log("you win");
             }
         }
