@@ -111,6 +111,7 @@ namespace Ghosts
         #region PacMan Related Getters
         [SerializeField] private Movement pacman;
         private Transform _pacmanTransform;
+        public int points = 50;
         public Vector3 GetPacmanPosition() => _pacmanTransform.position;
         public Vector2 GetPacmanDirection() => pacman.CurrentDir;
         
