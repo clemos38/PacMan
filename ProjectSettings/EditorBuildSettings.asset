@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 8bbe9c6ee49399b448fe775e08cb8f2f
   - enabled: 1
-    path: Assets/Scenes/Clemence.unity
+    path: Assets/Scenes/MainScene.unity
     guid: 21dbd420d85dc6242a06cd0546f3aad2
   m_configObjects: {}
