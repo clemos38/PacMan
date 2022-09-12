@@ -57,7 +57,7 @@ namespace Ghosts
 
             _pacmanTransform = pacman.transform;
             
-            ChangeState(NormalState);
+            ChangeState(RespawnState);
         }
 
         private void SetBrain()
@@ -76,6 +76,23 @@ namespace Ghosts
                 case GhostType.Orange:
                     brain = new OrangeBrain();
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public float GetRespawnTimer()
+        {
+            switch (type)
+            {
+                case GhostType.Red:
+                    return 5f;
+                case GhostType.Orange:
+                    return 10f;
+                case GhostType.Purple:
+                    return 15f;
+                case GhostType.Blue:
+                    return 20f;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
