@@ -1,30 +1,45 @@
+using UnityEngine;
+
 namespace Ghosts
 {
     public class GhostRespawnState : GhostState
     {
+        private int _normalTriggerHash;
+        public GhostRespawnState(GhostStateManager manager) : base(manager)
+        {
+            _normalTriggerHash = Animator.StringToHash("Normal");
+        }
         public override void EnterState()
         {
-            throw new System.NotImplementedException();
+            //Draw normal Ghost and comme back to Normal state
+            Manager.SetAnimatorTrigger(_normalTriggerHash);
+            Manager.SetBodyActive(true);
+            Manager.SetEyesActive(true);
+            Manager.SetSpriteColor(true);
+            
+            //Set a timer before letting them out. (Time set in the brain ?) 
         }
 
         public override void UpdateState()
         {
-            throw new System.NotImplementedException();
+            //Check if the timer is gone
+            
+            //Leave the Spawn
+            
+            //If Spawn left, Change State
         }
 
         public override void EndState()
         {
-            throw new System.NotImplementedException();
+            //Nothing special
         }
 
         public override void OnDrawGizmos()
         {
-            throw new System.NotImplementedException();
+            //Nothing to do here.
         }
 
 
-        public GhostRespawnState(GhostStateManager manager) : base(manager)
-        {
-        }
+        
     }
 }

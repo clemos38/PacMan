@@ -64,7 +64,7 @@ namespace Ghosts
         public override void OnCollisionEnter()
         {
             GameManager.Singleton.EatGhost(Manager);
-            Manager.StopWeakTimer();
+            Manager.StopWeakTimer(); //ça ne marche pas comme voulu c'est bizarre.
             Manager.ChangeState(Manager.DeathState);
         }
     }

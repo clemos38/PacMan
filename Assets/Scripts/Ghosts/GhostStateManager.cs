@@ -119,7 +119,7 @@ namespace Ghosts
             //TODO : Make the timers set in the GameManager so as to be more changeable.
             yield return new WaitForSeconds(10); 
             SetAnimatorTrigger(_animationStrengthenHash);
-            yield return new WaitForSeconds(10); 
+            yield return new WaitForSeconds(5); 
             ChangeState(NormalState);
         }
 
