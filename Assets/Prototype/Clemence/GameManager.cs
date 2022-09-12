@@ -1,12 +1,12 @@
 using Prototype.Clemence;
+using Ghosts;
 using UnityEngine;
 
 namespace CCLH
 {
     public class GameManager : MonoBehaviour
     {
-
-        [SerializeField] private Ghost[] ghostsList;
+        [SerializeField] private GhostStateManager[] ghostsList;
         public Pacman pacman;
         public Transform pacgums;
         public int PlayerScore { get; private set; }
@@ -16,40 +16,46 @@ namespace CCLH
         {
             NewGame();
         }
-
+        public void Update()
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                PacmanDies();
+            }
+        }
         public void NewGame()
         {
             SetScore(0);
             SetLives(2);
+            foreach (Transform pacgum in pacgums)
+            {
+                pacgum.gameObject.SetActive(true);
+            }
+        }
+        public void ResetState()
+        {
             ResetGhostsListState();
             ResetPacmanState();
         }
-
         public void SetScore(int score)
         {
             PlayerScore = score;
         }
-
         public void SetLives(int lives)
         {
             PlayerLives = lives;
         }
-
         public void ResetPacmanState()
         {
-            pacman.gameObject.SetActive(true);
+            pacman.ResetState();
         }
-
         public void ResetGhostsListState()
         {
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].gameObject.SetActive(true);
+                ghostsList[i].ChangeState(ghostsList[i].RespawnState);
             }
-        }
-        public void ResetPelletsListState()
-        {
-
         }
         public void GameOver()
         {
@@ -61,19 +67,22 @@ namespace CCLH
         }
         public void PacmanDies()
         {
-            pacman.gameObject.SetActive(false);
+            pacman.DeathSequence();
+
             SetLives(PlayerLives - 1);
-            if (PlayerLives == 0)
+            if (PlayerLives > 0)
+            {
+                Invoke(nameof(ResetState), 3f);
+            }
+            else
             {
                 GameOver();
             }
         }
-
-        public void EatGhost(Ghost ghost)
+        public void EatGhost(GhostStateManager ghost)
         {
-            SetScore(PlayerScore + ghost.points);
+            SetScore(PlayerScore + ghost._points);
         }
-
         public void EatPacgum(Pacgum pacgum)
         {
             pacgum.gameObject.SetActive(false);
@@ -84,13 +93,14 @@ namespace CCLH
                 Debug.Log("you win");
             }
         }
-
         public void EatSuperPacgum(SuperPacgum superPacgum)
         {
             EatPacgum(superPacgum);
-            //changer etat fantomes
+            for (int i = 0; i < ghostsList.Length; i++)
+            {
+                ghostsList[i].ChangeState(ghostsList[i].WeakState);
+            }
         }
-
         public bool HasRemainingPacgums()
         {
             foreach (Transform pacgum in pacgums)
