@@ -44,13 +44,19 @@ namespace Ghosts
             Debug.Log("-------- Chase mode : END");
         }
 
-        public override void OnDrawGizmos()
-        {
-            //Do nothing
-        }
-
         public GhostChaseState(GhostStateManager manager) : base(manager)
         {
+        }
+
+        public override void OnDrawGizmos()
+        {
+            //Draw the target
+            Gizmos.DrawCube(new Vector3(TargetTile.x,TargetTile.y,0), 1f*Vector3.one);
+            var pos = Manager.Tf.position;
+            Gizmos.DrawLine(pos, pos + (Vector3)Manager.Movement.CurrentDir);
+            // position -> TargetTile
+            Gizmos.DrawLine(pos, TargetTile);
+            
         }
     }
 }

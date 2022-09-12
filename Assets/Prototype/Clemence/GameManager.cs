@@ -24,6 +24,12 @@ namespace CCLH
         public int PlayerScore { get; private set; }
         public int PlayerLives { get; private set; }
 
+        float timeRemaining = 7;
+        float weakTimer = 15;
+        int cycle = 0;
+        bool ghostWeak = false;
+
+
         public void Start()
         {
             NewGame();
@@ -42,6 +48,8 @@ namespace CCLH
         {
             ResetGhostsListState();
             ResetPacmanState();
+            timeRemaining = 7;
+            cycle = 0;
         }
         public void SetScore(int score)
         {
@@ -105,6 +113,7 @@ namespace CCLH
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].ChangeState(ghostsList[i].WeakState);
+                ghostWeak = true;
             }
         }
         public bool HasRemainingPacgums()
@@ -117,6 +126,85 @@ namespace CCLH
                 }
             }
             return false;
+        }
+
+        void SwitchGhostScatter()
+        {
+            for (int i = 0; i < ghostsList.Length; i++)
+            {
+                ghostsList[i].ChangeState(ghostsList[i].NormalState);
+            }
+        }
+
+        void SwitchGhostChase()
+        {
+            for (int i = 0; i < ghostsList.Length; i++)
+            {
+                ghostsList[i].ChangeState(ghostsList[i].ChaseState);
+            }
+        }
+
+        void Update()
+        {
+            if(ghostWeak == true)
+            {
+                if(weakTimer >0)
+                {
+                    weakTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    ghostWeak = false;
+                }
+            }
+            else
+            {
+                if (timeRemaining > 0)
+                {
+                    timeRemaining -= Time.deltaTime;
+                }
+                else if(cycle < 6)
+                {
+                    switch(cycle)
+                    {
+                        case 0:
+                            timeRemaining = 20;
+                            SwitchGhostChase();
+                            break;
+                        
+                        case 1:
+                            timeRemaining = 7;
+                            SwitchGhostScatter();
+                            break;
+
+                        case 2:
+                            timeRemaining = 20;
+                            SwitchGhostChase();
+                            break;
+
+                        case 3:
+                            timeRemaining = 5;
+                            SwitchGhostScatter();
+                            break;
+
+                        case 4:
+                            timeRemaining = 20;
+                            SwitchGhostChase();
+                            break;
+
+                        case 5:
+                            timeRemaining = 5;
+                            SwitchGhostScatter();
+                            break;
+
+                        case 6:
+                            timeRemaining = 20;
+                            SwitchGhostChase();
+                            break;
+                    }
+                    cycle++;
+                }
+            }
         }
     }
 }
