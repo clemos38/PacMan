@@ -105,7 +105,7 @@ namespace Ghosts
             }
             else if (current.Equals(WeakState))
             {
-                if (!state.Equals(NormalState) && !state.Equals(DeathState)) return false;
+                if (state.Equals(RespawnState)) return false;
             }
             else if (current.Equals(DeathState))
             {
