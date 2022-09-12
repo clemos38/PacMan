@@ -144,17 +144,8 @@ namespace CCLH
             }
         }
 
-        public bool ghostPausedInScatter()
-        {
-            if(cycle = 0,2,4,6)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        public bool GhostPausedInScatter() => cycle % 2 == 0;
+        
 
         void Update()
         {

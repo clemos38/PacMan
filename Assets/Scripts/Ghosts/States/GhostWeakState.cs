@@ -38,7 +38,9 @@ namespace Ghosts
                 if((int)_strengthenTimer == 5) Manager.SetAnimatorTrigger(_animationStrengthenHash);
                 if (_strengthenTimer <= 0f)
                 {
-                    Manager.ChangeState(Manager.NormalState); //TODO : à modifier, dépend de l'état du cycle
+                    Manager.ChangeState(GameManager.Singleton.GhostPausedInScatter() 
+                        ? (GhostState) Manager.NormalState 
+                        : (GhostState) Manager.ChaseState); 
                     return;
                 }
 

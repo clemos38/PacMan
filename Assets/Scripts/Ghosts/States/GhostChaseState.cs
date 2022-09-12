@@ -5,10 +5,14 @@ namespace Ghosts
 {
     public class GhostChaseState : GhostState
     {
+        private int _animationTriggerHash;
         public override void EnterState()
         {
             Debug.Log("Chase mode : START");
-            //Maybe modify the speed of the ghost here.
+            //Graphical part
+            Manager.SetAnimatorTrigger(_animationTriggerHash);
+            Manager.SetSpriteColor(true);
+            Manager.SetEyesActive(true);
         }
 
         private Node _lastNode = null;
@@ -46,6 +50,7 @@ namespace Ghosts
 
         public GhostChaseState(GhostStateManager manager) : base(manager)
         {
+            _animationTriggerHash = Animator.StringToHash("Normal");
         }
 
         public override void OnDrawGizmos()
