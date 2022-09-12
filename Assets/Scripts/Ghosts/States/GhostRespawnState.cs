@@ -1,3 +1,4 @@
+using CCLH;
 using UnityEngine;
 
 namespace Ghosts
@@ -21,16 +22,27 @@ namespace Ghosts
             Manager.Tf.position = Manager.GetGhostSpawn();
             Manager.Movement.ChangerDirection(Vector2.zero); //No movement.
 
-            //Set a timer before letting them out. (Time set in the brain ?) 
+            //Set a timer before letting them out. (Time set in the brain ?)
+            _waitToGoTimer = Manager.GetRespawnTimer();
         }
+
+        private float _waitToGoTimer;
 
         public override void UpdateState()
         {
-            //Check if the timer is gone
+            if (_waitToGoTimer < 0)
+            {
+                Manager.Tf.position = new Vector3(-2f, 1.16f, 0f);
+                Manager.Movement.ChangerDirection(Vector2.left);
+                Manager.ChangeState(GameManager.Singleton.GhostPausedInScatter()
+                    ? (GhostState) Manager.NormalState
+                    : (GhostState) Manager.ChaseState);
+            }
+            else
+            {
+                _waitToGoTimer -= Time.deltaTime;
+            }
             
-            //Leave the Spawn
-            
-            //If Spawn left, Change State
         }
 
         public override void EndState()
