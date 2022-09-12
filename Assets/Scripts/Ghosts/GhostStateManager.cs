@@ -9,6 +9,7 @@ namespace Ghosts
         private GhostState _currentState;
         private GhostBrain _brain;
         [SerializeField] private GhostData data;
+        public int points = 50;
 
         #region States definitions
 

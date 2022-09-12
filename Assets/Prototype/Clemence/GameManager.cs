@@ -81,7 +81,7 @@ namespace CCLH
         }
         public void EatGhost(GhostStateManager ghost)
         {
-            SetScore(PlayerScore + ghost._points);
+            SetScore(PlayerScore + ghost.points);
         }
         public void EatPacgum(Pacgum pacgum)
         {
