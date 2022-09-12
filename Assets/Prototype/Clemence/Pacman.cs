@@ -1,18 +1,20 @@
 using UnityEngine;
 
-namespace Prototype.Clemence
+namespace CCLH
 {
     public class Pacman : MonoBehaviour
     {
         private SpriteRenderer spriteRenderer;
         private new Collider2D collider;
         private Movement movement;
+        public bool isPassingTunnel;
 
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             collider = GetComponent<Collider2D>();
             movement = GetComponent<Movement>();
+            isPassingTunnel = false;
         }
 
         public void ResetState()
