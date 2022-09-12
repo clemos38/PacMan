@@ -18,7 +18,9 @@ namespace Ghosts
             Manager.SetSpriteColor(true);
             //TODO : Activer les yeux
         }
-        
+
+        private Node _lastNode = null;
+        //TODO : 
         public override void UpdateState()
         {
             //Choose the target Tile
@@ -34,6 +36,8 @@ namespace Ghosts
             if (!(col is null))
             {
                 var node = col.GetComponent<Node>();
+                if (!(_lastNode is null) && _lastNode == node) return;
+                _lastNode = node;
                 var dir = Manager.brain.ChooseDirection(node,
                     pos,
                                         TargetTile,
