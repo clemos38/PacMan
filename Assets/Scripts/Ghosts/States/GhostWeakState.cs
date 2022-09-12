@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using CCLH;
 using UnityEngine;
 
@@ -7,11 +8,9 @@ namespace Ghosts
     public class GhostWeakState : GhostState
     {
         private int _animationTriggerHash;
-        private int _animationStrengthenHash;
         public GhostWeakState(GhostStateManager manager) : base(manager)
         {
             _animationTriggerHash = Animator.StringToHash("Weak");
-            _animationStrengthenHash = Animator.StringToHash("Strengthen");
         }
         public override void EnterState()
         {
@@ -20,16 +19,10 @@ namespace Ghosts
            Manager.SetAnimatorTrigger(_animationTriggerHash);
            Manager.SetSpriteColor(false);
            Manager.SetEyesActive(false);
+           
+           Manager.StartWeakTimer();
         }
-
-        private IEnumerator WeakDurationCoroutine()
-        {
-            //TODO : Make the timers set in the GameManager so as to be more changeable.
-            yield return new WaitForSeconds(10);
-            Manager.SetAnimatorTrigger(_animationStrengthenHash);
-            yield return new WaitForSeconds(5);
-            Manager.ChangeState(Manager.NormalState);
-        }
+        
 
         private Node _lastNode = null;
         public override void UpdateState()
@@ -71,6 +64,7 @@ namespace Ghosts
         public override void OnCollisionEnter()
         {
             GameManager.Singleton.EatGhost(Manager);
+            Manager.StopWeakTimer();
             Manager.ChangeState(Manager.DeathState);
         }
     }

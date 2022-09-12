@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using CCLH;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Ghosts
         
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
+        private CircleCollider2D _collider;
         public Movement Movement { get; private set; }
         public Transform Tf { get; private set; }
 
@@ -45,9 +47,12 @@ namespace Ghosts
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
+            _collider = GetComponent<CircleCollider2D>();
             
             //Brain affectation
             SetBrain();
+            _animationStrengthenHash = Animator.StringToHash("Strengthen");
+            
             
             Tf = transform;
             Movement = GetComponent<Movement>();
@@ -108,12 +113,32 @@ namespace Ghosts
             } 
         }
 
+        private int _animationStrengthenHash;
+        private IEnumerator WeakDurationCoroutine()
+        {
+            //TODO : Make the timers set in the GameManager so as to be more changeable.
+            yield return new WaitForSeconds(10); 
+            SetAnimatorTrigger(_animationStrengthenHash);
+            yield return new WaitForSeconds(10); 
+            ChangeState(NormalState);
+        }
+
+        public void StartWeakTimer() => StartCoroutine(WeakDurationCoroutine());
+        public void StopWeakTimer() => StopCoroutine(WeakDurationCoroutine());
+
+        public void DisableGhostCollisionWithPacMan(bool b)
+        {
+            _collider.isTrigger = b;
+        }
+        
         #region Visual related
 
         public void SetAnimatorTrigger(int triggerHash) => _animator.SetTrigger(triggerHash);
         public void SetSpriteColor(bool b) => _spriteRenderer.color = b ? color : Color.white;
 
-        public void SetEyesActive(bool b) =>Tf.GetChild(0).gameObject.SetActive(b);
+        public void SetEyesActive(bool b) => Tf.GetChild(0).gameObject.SetActive(b);
+
+        public void SetBodyActive(bool b) => _spriteRenderer.enabled = b;
 
         #endregion
         

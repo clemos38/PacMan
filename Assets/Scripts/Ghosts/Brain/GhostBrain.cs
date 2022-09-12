@@ -5,7 +5,7 @@ namespace Ghosts
 {
     public abstract class GhostBrain
     {
-        public Vector2 posGhosthome = new Vector2(-2,1.2f);
+        public Vector2 posGhosthome = new Vector2(-1.81f,-1.46f);
         
         public abstract Vector2 ChooseTargetTile(GState state, Vector2 posPacman, Vector2 dirPacman, Vector2[] ghostsPos);
 
@@ -33,6 +33,15 @@ namespace Ghosts
 
             else
             {
+                if (state == GState.Dead)
+                { //When we get to the spawn.
+                    Debug.Log("<color='red'> We get here </color>");
+                    if (node.gameObject.layer == LayerMask.NameToLayer("SpawnNode"))
+                    {
+                        Debug.Log("<color='yellow'> Spawn node has been identified </color>");
+                        return Vector2.down;
+                    }
+                }
                 //Direction check loop
                 var angle = 0.0f; //Init
                 foreach(var dirToTest in node.AvailableDirections) //We go through each possible direction (Vector2) in the node

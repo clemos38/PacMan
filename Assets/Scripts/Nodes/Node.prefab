@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2560
   boxcastSize: 0.23
 --- !u!58 &2467937677103292340
 CircleCollider2D:

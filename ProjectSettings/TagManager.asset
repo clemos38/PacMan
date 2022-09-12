@@ -16,8 +16,8 @@ TagManager:
   - Pellet
   - Obstacle
   - Node
-  - 
-  - 
+  - SpawnObstacle
+  - SpawnNode
   - 
   - 
   - 

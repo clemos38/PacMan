@@ -55,9 +55,6 @@ public class Movement : MonoBehaviour
 
     public void ChangerDirection(Vector2 Ndirection)
     {
-        //TODO : A modifier, les valeurs sont pas bonne je pense.
-        //! À régler
-        Debug.Log($"{name} want to take the direction {Ndirection}");
         var hit = Physics2D.BoxCast(transform.position, Vector2.one * boxcastSize, 0.0f, Ndirection, 0.9f, obstacleLayer);
         if(hit.collider is  null) // Si on ne rencontre rien dans la nouvelle direction
         {
