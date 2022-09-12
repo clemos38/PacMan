@@ -18,12 +18,15 @@ public class Movement : MonoBehaviour
     private Rigidbody2D _rb;
     private Transform _tf;
 
+    private bool start = false;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _tf = transform;
         _initPos = _tf.position;
         Reset();
+        start = true;
     }
     
 
@@ -66,5 +69,10 @@ public class Movement : MonoBehaviour
             NextDir = Ndirection; //Sinon, on garde la direction demandée en cache pour la changer dès que possible.
         }
     }
-    
+
+    private void OnDrawGizmos()
+    {
+        if (!start) return;
+        Gizmos.DrawCube(transform.position+(Vector3) ((0.9f) * CurrentDir), boxcastSize*Vector3.one);
+    }
 }

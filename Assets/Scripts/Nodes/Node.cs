@@ -11,7 +11,13 @@ namespace CCLH
         [SerializeField] private LayerMask obstacleLayer;
         [SerializeField] private float boxcastSize = 0.23f;
         public List<Vector2> AvailableDirections { get; private set; }
-        
+        private Vector3 pos;
+
+        private void Awake()
+        {
+            pos = transform.position;
+        }
+
         private void Start()
         {
             AvailableDirections = new List<Vector2>();
@@ -29,5 +35,15 @@ namespace CCLH
                 AvailableDirections.Add(dir);
             }
         }
+
+        /***private void OnDrawGizmos()
+        {
+            if (AvailableDirections is null) return;
+            if (AvailableDirections.Count == 0) return;
+            foreach (var direction in AvailableDirections)
+            {
+                Gizmos.DrawLine(pos, pos+ (Vector3)direction);
+            }
+        }***/
     }
 }
