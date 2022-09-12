@@ -4,30 +4,16 @@ using CCLH;
 public class Tunnel : MonoBehaviour
 {
     [SerializeField] private Tunnel tunnelReceiver;
-    [SerializeField] private Pacman pacman;
-    public bool isEntry;
+    public bool isLeft;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
+        if (collision.gameObject.GetComponent<Movement>() != null)
         {
-            if(pacman.isPassingTunnel == false) {
-                pacman.isPassingTunnel = true;
-                isEntry = true;
-                tunnelReceiver.isEntry = false;
-                collision.gameObject.transform.position = tunnelReceiver.transform.position;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
-        {
-            if(isEntry == false)
-            {
-                pacman.isPassingTunnel = false;
-            }
+            if (collision.gameObject.GetComponent<Movement>().CurrentDir == Vector2.right && !isLeft)
+            { collision.gameObject.transform.position = tunnelReceiver.transform.position; }
+            if (collision.gameObject.GetComponent<Movement>().CurrentDir == Vector2.left && isLeft)
+            { collision.gameObject.transform.position = tunnelReceiver.transform.position; }
         }
     }
 }
