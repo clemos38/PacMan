@@ -51,9 +51,7 @@ namespace Ghosts
             
             //Brain affectation
             SetBrain();
-            _animationStrengthenHash = Animator.StringToHash("Strengthen");
-            
-            
+
             Tf = transform;
             Movement = GetComponent<Movement>();
 
@@ -90,8 +88,40 @@ namespace Ghosts
             _currentState.UpdateState();
         }
 
+
+        private bool IsTransitionLegal(GhostState current, GhostState state)
+        {
+            if (current.Equals(RespawnState))
+            {
+                if (!state.Equals(NormalState)) return false;
+            }
+            else if (current.Equals(NormalState))
+            {
+                if (!state.Equals(WeakState) && !state.Equals(ChaseState)) return false;
+            }
+            else if (current.Equals(ChaseState))
+            {
+                if (!state.Equals(WeakState) && !state.Equals(NormalState)) return false;
+            }
+            else if (current.Equals(WeakState))
+            {
+                if (!state.Equals(NormalState) && !state.Equals(DeathState)) return false;
+            }
+            else if (current.Equals(DeathState))
+            {
+                if (!state.Equals(RespawnState)) return false;
+            }
+
+            return true;
+        }
         public void ChangeState(GhostState state)
         {
+            //Check for legal transition
+            if(!(_currentState is null))
+            {
+                if (!IsTransitionLegal(_currentState, state)) return;
+            }
+            
             _currentState?.EndState();
             _currentState = state;
             _currentState.EnterState();
@@ -113,18 +143,7 @@ namespace Ghosts
             } 
         }
 
-        private int _animationStrengthenHash;
-        private IEnumerator WeakDurationCoroutine()
-        {
-            //TODO : Make the timers set in the GameManager so as to be more changeable.
-            yield return new WaitForSeconds(10); 
-            SetAnimatorTrigger(_animationStrengthenHash);
-            yield return new WaitForSeconds(5); 
-            ChangeState(NormalState);
-        }
-
-        public void StartWeakTimer() => StartCoroutine(WeakDurationCoroutine());
-        public void StopWeakTimer() => StopCoroutine(WeakDurationCoroutine());
+       
 
         public void DisableGhostCollisionWithPacMan(bool b)
         {

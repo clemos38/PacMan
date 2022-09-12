@@ -8,10 +8,15 @@ namespace Ghosts
     public class GhostWeakState : GhostState
     {
         private int _animationTriggerHash;
+        private int _animationStrengthenHash;
         public GhostWeakState(GhostStateManager manager) : base(manager)
         {
             _animationTriggerHash = Animator.StringToHash("Weak");
+            _animationStrengthenHash = Animator.StringToHash("Strengthen");
         }
+
+        private float _weakTimer;
+        private float _strengthenTimer;
         public override void EnterState()
         {
             Debug.Log("Weak mode : START");
@@ -19,14 +24,31 @@ namespace Ghosts
            Manager.SetAnimatorTrigger(_animationTriggerHash);
            Manager.SetSpriteColor(false);
            Manager.SetEyesActive(false);
-           
-           Manager.StartWeakTimer();
+
+           _weakTimer = 10f;
+           _strengthenTimer = 5f;
         }
         
 
         private Node _lastNode = null;
         public override void UpdateState()
         {
+            if (_weakTimer <= 0f)
+            {
+                if((int)_strengthenTimer == 5) Manager.SetAnimatorTrigger(_animationStrengthenHash);
+                if (_strengthenTimer <= 0f)
+                {
+                    Manager.ChangeState(Manager.NormalState);
+                    return;
+                }
+
+                _strengthenTimer -= Time.deltaTime;
+            }
+            else
+            {
+                _weakTimer -= Time.deltaTime;
+            }
+            
             //Choose the target Tile
             TargetTile = Manager.brain.ChooseTargetTile(GState.Frightened,
                 Manager.GetPacmanPosition(),
@@ -64,7 +86,7 @@ namespace Ghosts
         public override void OnCollisionEnter()
         {
             GameManager.Singleton.EatGhost(Manager);
-            Manager.StopWeakTimer(); //ça ne marche pas comme voulu c'est bizarre.
+            
             Manager.ChangeState(Manager.DeathState);
         }
     }

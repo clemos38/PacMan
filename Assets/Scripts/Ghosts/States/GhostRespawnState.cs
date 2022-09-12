@@ -17,6 +17,10 @@ namespace Ghosts
             Manager.SetEyesActive(true);
             Manager.SetSpriteColor(true);
             
+            //Make sure he is at the correct position
+            Manager.Tf.position = Manager.GetGhostSpawn();
+            Manager.Movement.ChangerDirection(Vector2.zero); //No movement.
+
             //Set a timer before letting them out. (Time set in the brain ?) 
         }
 
