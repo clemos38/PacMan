@@ -144,6 +144,18 @@ namespace CCLH
             }
         }
 
+        public bool ghostPausedInScatter()
+        {
+            if(cycle = 0,2,4,6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         void Update()
         {
             if(ghostWeak == true)
@@ -163,7 +175,7 @@ namespace CCLH
                 {
                     timeRemaining -= Time.deltaTime;
                 }
-                else if(cycle < 6)
+                else if(cycle < 7)
                 {
                     switch(cycle)
                     {
@@ -198,7 +210,7 @@ namespace CCLH
                             break;
 
                         case 6:
-                            timeRemaining = 20;
+                            timeRemaining = 10000;
                             SwitchGhostChase();
                             break;
                     }
