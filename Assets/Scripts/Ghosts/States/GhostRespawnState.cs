@@ -34,9 +34,14 @@ namespace Ghosts
             {
                 Manager.Tf.position = new Vector3(-2f, 1.16f, 0f);
                 Manager.Movement.ChangerDirection(Vector2.left);
-                Manager.ChangeState(GameManager.Singleton.GhostPausedInScatter()
-                    ? (GhostState) Manager.NormalState
-                    : (GhostState) Manager.ChaseState);
+                if(GameManager.Singleton.GhostPausedInScatter())
+                {
+                    Manager.ChangeStateSpecial(Manager.NormalState);
+                }
+                else
+                {
+                    Manager.ChangeStateSpecial(Manager.ChaseState);
+                }
             }
             else
             {

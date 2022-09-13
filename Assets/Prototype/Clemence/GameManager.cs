@@ -79,7 +79,7 @@ namespace CCLH
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].gameObject.SetActive(true);
-                ghostsList[i].ChangeState(ghostsList[i].RespawnState);
+                ghostsList[i].ChangeState(ghostsList[i].NormalState);
             }
         }
         public void GameOver()

@@ -49,17 +49,19 @@ namespace Ghosts
             {
                 if(_timer <= 0)
                 {
-                    Manager.ChangeState(Manager.RespawnState);
+                    Manager.ChangeStateSpecial(Manager.RespawnState);
                     return;
                 }
 
                 _timer -= Time.deltaTime;
                 return;
             }
-
-            Manager.Tf.position = Manager.GetGhostSpawn();
-            _reachHome = true;
-            _timer = 5f;
+            else
+            {
+                Manager.Tf.position = Manager.GetGhostSpawn();
+                _reachHome = true;
+                _timer = 5f;
+            }
         }
 
         public override void EndState()

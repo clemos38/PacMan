@@ -18,6 +18,8 @@ namespace Ghosts
         [SerializeField] private GhostType type;
         
         public LayerMask nodeLayer;
+
+        float firstcall;
         
         
         private Animator _animator;
@@ -53,6 +55,7 @@ namespace Ghosts
             SetBrain();
 
             Tf = transform;
+            firstcall = 0;
             Movement = GetComponent<Movement>();
 
             _pacmanTransform = pacman.transform;
@@ -83,22 +86,28 @@ namespace Ghosts
 
         public float GetRespawnTimer()
         {
-            switch (type)
+            if(firstcall<4)
             {
-                case GhostType.Red:
-                    return 5f;
-                case GhostType.Orange:
-                    return 10f;
-                case GhostType.Purple:
-                    return 15f;
-                case GhostType.Blue:
-                    return 20f;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                firstcall += 1;
+                switch (type)
+                {
+                    case GhostType.Red:
+                        return 0f;
+                    case GhostType.Orange:
+                        return 15f;
+                    case GhostType.Purple:
+                        return 1f;
+                    case GhostType.Blue:
+                        return 10f;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                return 5f;
             }
         }
-
-        
 
         private void Update()
         {
@@ -110,7 +119,7 @@ namespace Ghosts
         {
             if (current.Equals(RespawnState))
             {
-                if (!state.Equals(NormalState)) return false;
+                if (!state.Equals(NormalState) &&  !state.Equals(ChaseState)) return false;
             }
             else if (current.Equals(NormalState))
             {
@@ -131,17 +140,44 @@ namespace Ghosts
 
             return true;
         }
+        public void ChangeStateSpecial(GhostState state)
+        {
+            //Check for legal transition
+            if(!(_currentState is null))
+            {
+                if (IsTransitionLegal(_currentState, state))
+                {
+                    _currentState?.EndState();
+                    _currentState = state;
+                    _currentState.EnterState();
+                }
+            }
+            else
+            {
+                _currentState?.EndState();
+                _currentState = state;
+                _currentState.EnterState();
+            }
+        }
+
         public void ChangeState(GhostState state)
         {
             //Check for legal transition
             if(!(_currentState is null))
             {
-                if (!IsTransitionLegal(_currentState, state)) return;
+                if (IsTransitionLegal(_currentState, state) && _currentState != RespawnState && _currentState != DeathState)
+                {
+                    _currentState?.EndState();
+                    _currentState = state;
+                    _currentState.EnterState();
+                }
             }
-            
-            _currentState?.EndState();
-            _currentState = state;
-            _currentState.EnterState();
+            else
+            {
+                _currentState?.EndState();
+                _currentState = state;
+                _currentState.EnterState();
+            }
         }
 
         private void OnDrawGizmos()
