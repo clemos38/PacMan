@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a66b5576734023962202535e4f81c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c60f639a5da14ceaa605a1e8923e4101, type: 3}
   m_Name: Pellet
   m_EditorClassIdentifier: 
   name: pellet

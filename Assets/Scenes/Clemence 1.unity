@@ -1239,7 +1239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2529b05d576614d69b7f8475d79cfdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - {fileID: 11400000, guid: 82413569ae1444bf592f7d9415ea277e, type: 2}
+  - {fileID: 11400000, guid: 2661afbad6d0647bd99903d9cfd0929c, type: 2}
+  - {fileID: 11400000, guid: ed81e4425d4414abeae3e27ae20f600c, type: 2}
+  - {fileID: 11400000, guid: 1d7d864ae7edb4dfeb0c0d8f2b9fdd6a, type: 2}
+  - {fileID: 11400000, guid: eb53c33302ea54352afb3e36fb7315da, type: 2}
 --- !u!82 &263194800
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7419,6 +7424,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7217440724972535174, guid: 8fa7028e40f4541f6a25b5a5aad042a6, type: 3}
   m_PrefabInstance: {fileID: 1404767940}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &599398270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 599398273}
+  - component: {fileID: 599398272}
+  - component: {fileID: 599398271}
+  m_Layer: 5
+  m_Name: Win
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &599398271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599398270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: YOU HAVE WON !
+--- !u!222 &599398272
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599398270}
+  m_CullTransparentMesh: 1
+--- !u!224 &599398273
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599398270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1702027379}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 258.6, y: 36.1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &606440517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7217440724972535174, guid: 8fa7028e40f4541f6a25b5a5aad042a6, type: 3}
@@ -10944,6 +11028,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2442264326434984438, guid: c26f01f3655f54d4a8f7937aee7d8b3a, type: 3}
+      propertyPath: Win
+      value: 
+      objectReference: {fileID: 599398270}
     - target: {fileID: 2442264326434984439, guid: c26f01f3655f54d4a8f7937aee7d8b3a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11928,6 +12016,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa7028e40f4541f6a25b5a5aad042a6, type: 3}
+--- !u!224 &1702027379 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2442264326434984439, guid: c26f01f3655f54d4a8f7937aee7d8b3a, type: 3}
+  m_PrefabInstance: {fileID: 1477170696}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1703448884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7217440724972535174, guid: 8fa7028e40f4541f6a25b5a5aad042a6, type: 3}

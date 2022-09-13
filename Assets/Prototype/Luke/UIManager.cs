@@ -30,14 +30,14 @@ namespace Prototype.Luke
         public Image ready;
         public Image gameOver;
         public int HScore;
-        public Image Win;
+        public GameObject Win;
 
         private string _path;
 
         public void Affichage()
         {
             gameOver.enabled = false;
-            Win.enabled = false;
+            Win.SetActive(false);
 
         }
 
@@ -79,7 +79,7 @@ namespace Prototype.Luke
 
         public async void AffichageWin()
         {
-            Win.enabled = true;
+            Win.SetActive(true);
             await Task.Delay(5 * 1000);
             SceneManager.LoadScene(0);
         }

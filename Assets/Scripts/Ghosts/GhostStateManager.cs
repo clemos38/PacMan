@@ -203,6 +203,9 @@ namespace Ghosts
             _collider.isTrigger = b;
         }
 
+        public bool IsWeak() => _currentState.Equals(WeakState);
+        
+
         public Vector2 GetGhostSpawn() => GhostsManager.Singleton.GetGhostSpawn(type);
         #region Visual related
 
@@ -212,7 +215,7 @@ namespace Ghosts
         public void SetEyesActive(bool b) => Tf.GetChild(0).gameObject.SetActive(b);
 
         public void SetBodyActive(bool b) => _spriteRenderer.enabled = b;
-
+        
         #endregion
         
         #region PacMan Related Getters

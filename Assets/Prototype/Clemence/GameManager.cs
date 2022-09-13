@@ -40,8 +40,9 @@ namespace CCLH
             
         }
         
-        public void NewGame()
+        private void NewGame()
         {
+            AudioManager.Singleton.PlaySound("start");
             SetScore(0);
             SetLives(2);
             foreach (Transform pacgum in pacgums)
@@ -49,8 +50,30 @@ namespace CCLH
                 pacgum.gameObject.SetActive(true);
             }
             _ui.Affichage();
+            //Pause everything (disable normal inputs)
 
         }
+
+        #region Setters
+
+        private void SetScore(int score)
+        {
+            PlayerScore = score;
+            _ui.AffichageReady();
+            if(score != 0) _ui.AffichageScore(score,PlayerScore);
+            
+        }
+        private void SetLives(int lives)
+        {
+            PlayerLives = lives;
+            _ui.AffichageLives(lives);
+        }
+
+        #endregion
+
+
+        #region Reset related
+
         public void ResetState()
         {
             ResetGhostsListState();
@@ -58,37 +81,28 @@ namespace CCLH
             timeRemaining = 7;
             cycle = 0;
         }
-        public void SetScore(int score)
-        {
-            PlayerScore = score;
-            _ui.AffichageReady();
-            if(score != 0) _ui.AffichageScore(score,PlayerScore);
-            
-        }
-        public void SetLives(int lives)
-        {
-            PlayerLives = lives;
-            _ui.AffichageLives(lives);
-        }
-        public void ResetPacmanState()
+        private void ResetPacmanState()
         {
             pacman.ResetState();
         }
-        public void ResetGhostsListState()
+        private void ResetGhostsListState()
         {
-            for (int i = 0; i < ghostsList.Length; i++)
+            foreach (var ghost in ghostsList)
             {
-                ghostsList[i].gameObject.SetActive(true);
-                ghostsList[i].ChangeState(ghostsList[i].NormalState);
+                ghost.gameObject.SetActive(true);
+                ghost.ChangeState(ghost.RespawnState);
             }
         }
-        public void GameOver()
+
+        #endregion
+        private void GameOver()
         {
             pacman.gameObject.SetActive(false);
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].gameObject.SetActive(false);
             }
+            AudioManager.Singleton.PlaySound("death");
             _ui.AffichageGameOver();
         }
         public void PacmanDies()
@@ -105,6 +119,9 @@ namespace CCLH
                 GameOver();
             }
         }
+
+        #region Interaction
+
         public void EatGhost(GhostStateManager ghost)
         {
             AudioManager.Singleton.PlaySound("ghost");
@@ -131,6 +148,9 @@ namespace CCLH
                 ghostWeak = true;
             }
         }
+
+        #endregion
+        
         public bool HasRemainingPacgums()
         {
             foreach (Transform pacgum in pacgums)
@@ -142,6 +162,8 @@ namespace CCLH
             }
             return false;
         }
+
+        #region Ghost states related
 
         void SwitchGhostScatter()
         {
@@ -160,20 +182,32 @@ namespace CCLH
         }
 
         public bool GhostPausedInScatter() => cycle % 2 == 0;
-        
 
+        private bool StillWeakGhost()
+        {
+            foreach (var ghost in ghostsList)
+            {
+                if (ghost.IsWeak()) return true;
+            }
+
+            return false;
+        }
+
+        #endregion
         void Update()
         {
-            if(ghostWeak == true)
+            if(ghostWeak)
             {
-                if(weakTimer >0)
+                if(weakTimer <= 0 || !StillWeakGhost()) //! pas très optimisé
                 {
-                    weakTimer -= Time.deltaTime;
+                    AudioManager.Singleton.PlaySound("powered", false);
+                    weakTimer = 15;
+                    ghostWeak = false;
                 }
                 else
                 {
-                    AudioManager.Singleton.PlaySound("powered", false);
-                    ghostWeak = false;
+                    
+                    weakTimer -= Time.deltaTime;
                 }
             }
             else
