@@ -35,6 +35,8 @@ namespace Ghosts
         public GhostWeakState WeakState { get; private set; } //Frighten
         public GhostDeathState DeathState { get; private set; } //Go back home
         public GhostRespawnState RespawnState { get; private set; } //Get out of home
+        
+        public GhostWaitState WaitState { get; private set; } //At early, waiting for player input.
 
         #endregion
 
@@ -46,7 +48,8 @@ namespace Ghosts
             WeakState = new GhostWeakState(this); //being attacked by pacman
             DeathState = new GhostDeathState(this); //Going back home
             RespawnState = new GhostRespawnState(this); //Respawning at the base and getting out
-
+            WaitState = new GhostWaitState(this);
+            
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
             _collider = GetComponent<CircleCollider2D>();
@@ -60,7 +63,7 @@ namespace Ghosts
 
             _pacmanTransform = pacman.transform;
             
-            ChangeState(RespawnState);
+            ChangeState(WaitState);
         }
 
         private void SetBrain()
@@ -117,6 +120,8 @@ namespace Ghosts
 
         private bool IsTransitionLegal(GhostState current, GhostState state)
         {
+            if (state.Equals(WaitState)) return true;
+            
             if (current.Equals(RespawnState))
             {
                 if (!state.Equals(NormalState) &&  !state.Equals(ChaseState)) return false;

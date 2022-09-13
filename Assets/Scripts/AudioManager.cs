@@ -45,6 +45,7 @@ public class AudioManager : MonoBehaviour
       else StopSound(sound);
    }
 
+   public bool IsStartPlaying() => sounds[1].source.isPlaying;
 
    public void PlayPelletSound() => PlaySound(sounds[0]);
 }

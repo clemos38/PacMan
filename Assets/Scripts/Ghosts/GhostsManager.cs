@@ -35,5 +35,6 @@ namespace Ghosts
         }
 
         public Vector2 GetGhostSpawn(GhostType type) => ghostsSpawn[(int) type].position;
+        
     }
 }

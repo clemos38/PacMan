@@ -32,6 +32,8 @@ namespace CCLH
         int cycle = 0;
         bool ghostWeak = false;
 
+        private bool _playerStarted = false;
+        private bool _startSoundLaunched = false;
 
         public void Start()
         {
@@ -43,6 +45,7 @@ namespace CCLH
         private void NewGame()
         {
             AudioManager.Singleton.PlaySound("start");
+            _startSoundLaunched = true;
             SetScore(0);
             SetLives(2);
             foreach (Transform pacgum in pacgums)
@@ -51,7 +54,7 @@ namespace CCLH
             }
             _ui.Affichage();
             //Pause everything (disable normal inputs)
-
+            InputController.Singleton.SetActionActive(false);
         }
 
         #region Setters
@@ -98,17 +101,21 @@ namespace CCLH
         private void GameOver()
         {
             pacman.gameObject.SetActive(false);
-            for (int i = 0; i < ghostsList.Length; i++)
+            foreach (var ghost in ghostsList)
             {
-                ghostsList[i].gameObject.SetActive(false);
+                ghost.gameObject.SetActive(false);
             }
             AudioManager.Singleton.PlaySound("death");
             _ui.AffichageGameOver();
         }
+        
         public void PacmanDies()
         {
             pacman.DeathSequence();
-
+            foreach (var ghost in ghostsList)
+            {
+                ghost.gameObject.SetActive(false);
+            }
             SetLives(PlayerLives - 1);
             if (PlayerLives > 0)
             {
@@ -196,6 +203,25 @@ namespace CCLH
         #endregion
         void Update()
         {
+            if (!_playerStarted)
+            {
+                if (!_startSoundLaunched) return;
+                if (!AudioManager.Singleton.IsStartPlaying()) //Sound stopped
+                {
+                    InputController.Singleton.SetActionActive(true);
+                    foreach (var ghost in ghostsList)
+                    {
+                        ghost.ChangeState(ghost.RespawnState);
+                    }
+
+                    _playerStarted = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            
             if(ghostWeak)
             {
                 if(weakTimer <= 0 || !StillWeakGhost()) //! pas très optimisé

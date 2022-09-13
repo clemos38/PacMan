@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,7 +17,7 @@ public class Script_play : MonoBehaviour
 
    private void SetHighScore()
    {
-       highscoreTxt.text = "High Score  : " + System.IO.File.ReadAllText("Score.txt"); //r�cup�ration du score   
+       highscoreTxt.text = "High Score  : " + System.IO.File.ReadAllText(Application.streamingAssetsPath + "/Score.txt"); //r�cup�ration du score   
    }
 
     public void QuitGame()

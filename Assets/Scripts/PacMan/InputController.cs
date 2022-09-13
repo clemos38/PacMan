@@ -5,6 +5,8 @@ namespace CCLH
 {
     public class InputController : MonoBehaviour
     {
+        public static InputController Singleton;
+
         private Movement _movement;
         private Controls _action;
         private InputAction _move;
@@ -25,9 +27,17 @@ namespace CCLH
             _action.Disable();
         }
 
+        public void SetActionActive(bool b)
+        {
+            if(b) _action.Enable();
+            else _action.Disable();
+        }
 
         private void Awake()
         {
+            if(Singleton != null && Singleton != this) Destroy(gameObject);
+            Singleton = this;
+
             _movement = GetComponent<Movement>();
         }
 
