@@ -107,6 +107,7 @@ namespace CCLH
         }
         public void EatGhost(GhostStateManager ghost)
         {
+            AudioManager.Singleton.PlaySound("ghost");
             SetScore(PlayerScore + ghost.points);
         }
         public void EatPacgum(Pacgum pacgum)
@@ -123,6 +124,7 @@ namespace CCLH
         public void EatSuperPacgum(SuperPacgum superPacgum)
         {
             EatPacgum(superPacgum);
+            AudioManager.Singleton.PlaySound("powered");
             for (int i = 0; i < ghostsList.Length; i++)
             {
                 ghostsList[i].ChangeState(ghostsList[i].WeakState);
@@ -170,6 +172,7 @@ namespace CCLH
                 }
                 else
                 {
+                    AudioManager.Singleton.PlaySound("powered", false);
                     ghostWeak = false;
                 }
             }

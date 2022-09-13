@@ -10,7 +10,7 @@ namespace CCLH
 
         protected override void GetEaten()
         {
-            FindObjectOfType<GameManager>().EatSuperPacgum(this);
+            GameManager.Singleton.EatSuperPacgum(this);
             Debug.Log("SuperPacgum eaten");
         }
     }
